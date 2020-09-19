@@ -1,0 +1,26 @@
+ │  Rules will be created to add the 1394 cards and USB devices to a group   │ 
+ │ called pgrimaging.                                                        │ 
+ │  Please note that this will change the permissions for all IEEE1394/USB   │ 
+ │ devices                                                                   │ 
+ │  including hard drives and web cams. It will allow members of the         │ 
+ │ pgrimaging group                                                          │ 
+ │  to read and modify data on any IEEE1394/USB device.                      │ 
+ │                                                                           │ 
+ │  Proceed with udev rule creation? 
+
+
+
+
+sudo update-grub
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-5.2.16-050216-lowlatency
+Found initrd image: /boot/initrd.img-5.2.16-050216-lowlatency
+Found linux image: /boot/vmlinuz-4.15.0-117-generic
+Found initrd image: /boot/initrd.img-4.15.0-117-generic
+Found linux image: /boot/vmlinuz-4.15.0-115-generic
+Found initrd image: /boot/initrd.img-4.15.0-115-generic
+Found Windows Boot Manager on /dev/nvme0n1p1@/EFI/Microsoft/Boot/bootmgfw.efi
+Adding boot menu entry for EFI firmware configuratio
+
+
+

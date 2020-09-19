@@ -1,0 +1,24 @@
+<launch>
+
+    <!-- main launch node -->
+    <node pkg="pointgrey_ladybug" type="ladybug_camera_jpeg_file" name="ladybug_camera_save_files" output="screen">
+
+        <!-- Camera properties -->
+<!--        <param name="DataFormat"               type="int" value="1"/>-->
+        <param name="DataFormat"               type="string" value="LADYBUG_DATAFORMAT_COLOR_SEP_JPEG8"/> <!-- max 16 -->
+        <param name="FrameRate"               type="double" value="10"/> <!-- max 16 -->
+        <param name="IsFrameRateAuto"      type="bool"   value="false"/>
+        <param name="JpegQualityPercentage"      type="double"   value="80"/>
+        <param name="IsJpegQualityAuto"      type="bool"   value="true"/>
+        <param name="JpegBufferPercentage"      type="double"   value="110"/>
+
+        <!-- GPS properties -->
+        <param name="UseGps"      type="bool"   value="false"/>
+
+        <!-- Stream properties -->
+        <param name="DestinationDirectory"      type="string"   value="."/>
+
+    </node>
+
+
+</launch>
