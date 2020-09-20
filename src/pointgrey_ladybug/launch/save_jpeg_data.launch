@@ -16,7 +16,7 @@
         <param name="UseGps"      type="bool"   value="false"/>
 
         <!-- Stream properties -->
-        <param name="DestinationDirectory"      type="string"   value="."/>
+        <param name="DestinationDirectory"      type="string"   value="/home/XXX"/> <!-- absolute path suggested-->
 
     </node>
 

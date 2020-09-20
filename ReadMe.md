@@ -16,7 +16,7 @@ Ladybug3相机的图像采集有两类模式，一类是采集原图，一类是
 * Open the /etc/default/grub file in any text editor. Find and replace:
   * `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"`
   * With:
-  * `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash usbcore.usbfs_memory_mb=2000"`
+  * `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash usbcore.usbfs_memory_mb=4095"`(经过测试，这个值设置到4000以上才能正常工作，不同电脑不同，如果遇到帧率不正常，图片不全，可以试试增大这个值)
 * `sudo update-grub`
 * restart computer
 * check that it is enabled: `cat /sys/module/usbcore/parameters/usbfs_memory_mb`
@@ -62,7 +62,7 @@ $ roslaunch pointgrey_ladybug display_raw_data.launch
 - 例子：
 
 ```
-$ roslaunch pointgrey_ladybug save_jpeg_data.launch  
+$ roslaunch pointgrey_ladybug save_jpeg_data.launch  #运行之前要修改launch文件中的文件保存路径
 ```
 
 - 输出图像方式：
