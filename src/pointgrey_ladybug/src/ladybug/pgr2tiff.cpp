@@ -1,15 +1,17 @@
 //=============================================================================
 //
-// pgr2bmp.cpp
+// pgr2tiff.cpp
 // 2020.9.19
 //
-// This program is used to extract bmp images from a Ladybug source stream(.pgr)
-// The format of output images' name is "camera0/1/2/3/4/5-imageid.bmp"
+// This program is used to extract tiff images from a Ladybug source stream(.pgr)
+// The format of output images' name is "camera0/1/2/3/4/5-imageid.tiff"
 //
 //=============================================================================
 //
 // example:
-//    pgr2bmp gr2bmp pgrFileName outputDirectory
+//    pgr2tiff pgrFileName outputDirectory
+// or
+//    rosrun pointgrey_ladybug pgr2tiff pgrFileName outputDirectory
 //
 //=============================================================================
 
@@ -18,6 +20,7 @@
 #include <string>
 #include <iostream>
 #include <ladybugstream.h>
+#include "sstream"
 
 #define _MAX_PATH 256
 
@@ -57,9 +60,25 @@ int main(int argc, char* argv[])
     //
     char* gprFileName  = argv[1];
     char fileNmae[256] = { 0 };
-    const std::string outputPathPrefix = std::string (argv[2]);
+    std::string outputPathPrefix = std::string (argv[2]);
+    if(outputPathPrefix[ outputPathPrefix.size() - 1 ] != '/'){
+        outputPathPrefix += '/';
+    }
+    outputPathPrefix += "lb3/";
+    std::string subDirc = "Cam0/";
     std::string outputPath;
+
+
     LadybugColorProcessingMethod colorProcessingMethod = LADYBUG_HQLINEAR;
+
+    // make directory to save images
+    std::string mkdirCmd;
+    for(uint uiCamera = 0; uiCamera < 6 ; uiCamera ++)
+    {
+        subDirc[3] = uiCamera + '0';
+        mkdirCmd = "mkdir -p " + outputPathPrefix + subDirc;
+        system( mkdirCmd.c_str() );
+    }
 
     //
     // Create stream context for reading
@@ -140,11 +159,19 @@ int main(int argc, char* argv[])
                 processedImage.pixelFormat = LADYBUG_BGRU;
                 processedImage.uiCols = currentImage.uiCols;
                 processedImage.uiRows = currentImage.uiRows;
-                // save to bmp
-                sprintf(fileNmae, "/camera%d-%d.bmp", uiCamera,currentImage.imageInfo.ulSequenceId);
-                outputPath = outputPathPrefix + string(fileNmae) ;
+                string microseconds;
+                std::stringstream ss;
+                ss << currentImage.imageInfo.ulTimeMicroSeconds;
+                ss >> microseconds;
+                while(microseconds.size() < 6){
+                    microseconds = '0' + microseconds;
+                }
+                // save to tiff
+                sprintf(fileNmae, "%d%s.tiff", currentImage.imageInfo.ulTimeSeconds,microseconds.c_str());
+                subDirc[3] = uiCamera + '0';
+                outputPath = outputPathPrefix + subDirc + string(fileNmae) ;
                 cout << outputPath << endl;
-                error = ladybugSaveImage(readingContext, &processedImage, outputPath.c_str(), LADYBUG_FILEFORMAT_BMP);
+                error = ladybugSaveImage(readingContext, &processedImage, outputPath.c_str(), LADYBUG_FILEFORMAT_TIFF);
                 _HANDLE_ERROR
                 printf("Saved camera %u image to %s.\n", uiCamera, outputPath.c_str());
             }
@@ -159,3 +186,4 @@ int main(int argc, char* argv[])
     ladybugDestroyStreamContext ( &readingContext );
     return 0;
 }
+

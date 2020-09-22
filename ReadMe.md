@@ -75,10 +75,10 @@ ladybug_12193139_2020XXXX_XXXXXX-000000.pgr
 
 节点发布话题`/ladybug/imageInfo`, 消息类型为std_msgs::Header，包含每个image的id和采集图像时的ROS时间戳，**录制数据集时可以把这个话题录进去**
 
-数据采集完成之后，需要离线解压视频流文件为bmp格式文件
+数据采集完成之后，需要离线解压视频流文件为tiff格式文件
 
 ```
-rosrun pointgrey_ladybug pgr2bmp pgrfileName outputDirectory
+rosrun pointgrey_ladybug pgr2tiff pgrfileName outputDirectory
 ```
 
 

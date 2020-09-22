@@ -57,10 +57,10 @@ if(EXISTS "/usr/include/ladybug")
 			ladybug
 			)
 
-	add_executable(pgr2bmp
-			src/ladybug/pgr2bmp.cpp
+	add_executable(pgr2tiff
+			src/ladybug/pgr2tiff.cpp
 			)
-	target_link_libraries(pgr2bmp
+	target_link_libraries(pgr2tiff
 			flycapture
 			ladybug
 			)
