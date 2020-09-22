@@ -6,6 +6,14 @@ Ladybug3相机的图像采集有两类模式，一类是采集原图，一类是
 
 ![](./images/supported_image_formats.jpg)
 
+## 文件目录
+
+`src/pointgray_ladybug` : ladybug ROS驱动
+
+`Ladybug SDK`：包含Linux SDK 和Windows SDK 
+
+`Ladybug doc` ：一些ladybug的手册
+
 ## Installation
 
 #### 1.安装Linux ladybug SDK
@@ -73,7 +81,7 @@ $ roslaunch pointgrey_ladybug save_jpeg_data.launch  #运行之前要修改launc
 ladybug_12193139_2020XXXX_XXXXXX-000000.pgr 
 ```
 
-节点发布话题`/ladybug/imageInfo`, 消息类型为std_msgs::Header，包含每个image的id和采集图像时的ROS时间戳，**录制数据集时可以把这个话题录进去**
+节点发布话题`/ladybug/imageInfo`, 消息类型为std_msgs::Header，包含每个image的id和采集图像时的ROS时间戳，如果想用采集图片时的ros时间戳，**录制数据集时可以把这个话题录进去**。不过相机采集时会带有世界时间戳，**我们使用的是这个时间戳**
 
 数据采集完成之后，需要离线解压视频流文件为tiff格式文件
 
