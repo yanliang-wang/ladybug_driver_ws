@@ -41,7 +41,7 @@ void usage()
 {
     printf (
             "Usage :\n"
-            "\t pgr2bmp pgrFileName outputDirectory \n"
+            "\t pgr2tiff pgrFileName outputDirectory \n"
     );
 }
 
@@ -64,6 +64,7 @@ int main(int argc, char* argv[])
     if(outputPathPrefix[ outputPathPrefix.size() - 1 ] != '/'){
         outputPathPrefix += '/';
     }
+    uint matchId[6] = {4 , 5 , 1 , 2 , 3 , 0}; //ladybug image id --> nclt dataset image id
     outputPathPrefix += "lb3/";
     std::string subDirc = "Cam0/";
     std::string outputPath;
@@ -168,7 +169,7 @@ int main(int argc, char* argv[])
                 }
                 // save to tiff
                 sprintf(fileNmae, "%d%s.tiff", currentImage.imageInfo.ulTimeSeconds,microseconds.c_str());
-                subDirc[3] = uiCamera + '0';
+                subDirc[3] = matchId[uiCamera] + '0';
                 outputPath = outputPathPrefix + subDirc + string(fileNmae) ;
                 cout << outputPath << endl;
                 error = ladybugSaveImage(readingContext, &processedImage, outputPath.c_str(), LADYBUG_FILEFORMAT_TIFF);
