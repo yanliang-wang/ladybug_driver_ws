@@ -6,6 +6,20 @@ Ladybug3相机的图像采集有两类模式，一类是采集原图，一类是
 
 ![](./images/supported_image_formats.jpg)
 
+## 硬件连接方案
+
+#### 雷电3转接方案（适用于带有雷电3的笔记本或工控机）
+
+目前通过雷电3转firewire800的方案不同，找到以下三种
+
+1. 带有firewire800 的雷电3扩展坞（现用方案）
+2. 雷电3->pcie卡   +  pcie转firewire800采集卡（测试可用）
+3. 雷电3->雷电2   + 雷电2->firewire800（本方案未测试过，这两个转接线只有苹果在卖，能提供的功率是7W，而ladybug3驱动需要7.2W，理论上驱动也是可以的）
+
+#### pcie驱动方案（适用于主机）
+
+直接使用pcie转firewire800采集卡即可
+
 ## 文件目录
 
 `src/pointgray_ladybug` : ladybug ROS驱动
@@ -93,7 +107,7 @@ rosrun pointgrey_ladybug pgr2tiff pgrfileName outputDirectory
 
 ## TO DO
 
-1. Mode 1，设法降低分辨率（参考），理论上会提高最大频率的限制
+1. Mode 1 降低分辨率（参考），理论上会提高最大频率的限制
 2. Mode 2，设法将jpeg压缩后的变量格式（ladybug SDK 自定义格式）转为sensor_msgs::image（我尝试了一些方法没有成功），说不定也可以将图片通过topic直接发出来
 3. Mode 2，单线程下，如果边采集图像，边保存为bmg文件会消耗时间，16Hz会降到10Hz左右，如果改到多线程下边采集图像边保存为图像文件，应该可以解决这个问题，这样就不需要离线再操作一步了
 4. Ladybug提供了一些格外的接口，比如去畸变图像，将6张图片合并到一张图上等等，这些接口在Windows驱动上可以直接看到，Linux上可以参考`ladybugProcessStream`这个Demo改一下（这个demo安装SDK后可以在`/usr/src/ladybug/src`找到）
